@@ -1,21 +1,52 @@
-<!DOCTYPE html><html class="mahjongPage">
+<!DOCTYPE html>
+<html class="mahjongPage">
 <head>
     <title>Mahjong</title>
+    <script>
+        window.addEventListener("load", function(){
+            var updateConsent = function() {
+                var consent = this.hasConsented();
+            };
+            var autoConsent = function() {
+                window.store.set("cookie-consent", "allow");
+            };
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": { "background": "#252e39" },
+                    "button": { "background": "#b5f9cf" }
+                },
+                "theme": "classic",
+                "position": "bottom",
+                "static": true,
+                "type": "opt-in",
+                "content": { "href": "/legal" },
+                "reallyNotRevokable": true,
+                "location": { "services": ["geoipdb"] },
+                "onStatusChange": updateConsent,
+                "onRevokeChoice": updateConsent,
+                "onNoCookieLaw": autoConsent
+            }, function complete(popup) {
+                document.getElementById("revoke-cookie-consent").addEventListener("click", function() {
+                    popup.revokeChoice();
+                });
+            });
+        });
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5L9MR337ZH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5L9MR337ZH');
+    </script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="screen" href="assets/mahjong-677d5d053a7ec3b066d510fb889a43f3.css">
     <script>(window.Promise && window.Symbol && Object.entries) || document.write('<script src="assets/shim.min-da6a3b9b50b0fb3804a86c0c2cd5d123.js"><\/script>')</script>
     <script src="assets/application-67cff164f04de397a15cbbf24fcf6124.js"></script>
     <meta name="description" content="Play Mahjong for free. No download or registration needed.">
-
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5L9MR337ZH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5L9MR337ZH');
-</script>
 </head>
 <body>
     <div class="solitr-header">
@@ -23,27 +54,20 @@
             <div class="solitr-brand">mahjong</div>
             <div class="solitr-small-links-container">
                 <a class="solitr-small-link" id="revoke-cookie-consent">Cookies</a>&nbsp;-&nbsp;
-                <a class="solitr-small-link" href="cookies.html">Cookies Policy</a>&nbsp;-&nbsp;
                 <a class="solitr-small-link" data-toggle="modal" href="#about-modal">About</a>
             </div>
         </div>
         <div class="solitr-menu-bar mahjong-menu-bar">
             <div class="mahjong-menu-bar-contents">
                 <a class="solitr-menu-item solitr-new-game" tabindex="0">New Game</a>
-                <a class="solitr-menu-item solitr-hint-button" tabindex="0">
-                    <div class="hint-icon"></div>&nbsp;Hint
-                </a>
-                <a class="solitr-menu-item solitr-undo-button disabled" tabindex="0">
-                    <div class="undo-icon"></div>&nbsp;Undo
-                </a>
+                <a class="solitr-menu-item solitr-hint-button" tabindex="0"><div class="hint-icon"></div>&nbsp;Hint</a>
+                <a class="solitr-menu-item solitr-undo-button disabled" tabindex="0"><div class="undo-icon"></div>&nbsp;Undo</a>
                 <div class="solitr-dropdown-menu-wrapper dropdown">
                     <a class="solitr-menu-item dropdown-toggle" data-toggle="dropdown" tabindex="0">
                         <div class="shuffle-icon"></div>&nbsp;Shuffle <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu mahjong-shuffle-dropdown" role="menu">
-                        <li class="dropdown-header" role="presentation">
-                            You have shuffled <b class="mahjong-shuffle-count">0</b> time(s) this game.
-                        </li>
+                        <li class="dropdown-header" role="presentation">You have shuffled <b class="mahjong-shuffle-count">0</b> time(s) this game.</li>
                         <li class="solitr-dropdown-button-item" role="presentation">
                             <div class="btn btn-primary solitr-shuffle-button" role="button">Shuffle remaining tiles</div>
                         </li>
@@ -71,12 +95,7 @@
                     <p>P.S. Check out my new <a href="../www.calcu.net/index.html">calculator</a> web app!</p>
                     <h4>Legal</h4>
                     <p>This site is now owned and operated by my company:</p>
-                    <p>Sinopia Olive Limited<br>
-                        11 Raven Wharf<br>
-                        Lafone Street<br>
-                        London<br>
-                        SE1 2LR<br>
-                        United Kingdom</p>
+                    <p>Sinopia Olive Limited<br>11 Raven Wharf<br>Lafone Street<br>London<br>SE1 2LR<br>United Kingdom</p>
                     <p>Company number: 10151298</p>
                     <p>Website: <a href="../sinopiaolive.com/index.html">sinopiaolive.com</a></p>
                     <p>By using this site you agree to the <a href="legal.html">Privacy and Cookie Policy</a>.</p>
